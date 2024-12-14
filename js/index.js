@@ -8,12 +8,15 @@ async function searching(key) {
     if (!key || key.length < 2) {
         return; 
     }
-            var response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=04829fc7d84c4de88bb15515241312&q=${key}&days=3`);
-            var data = await response.json() ;
+    var response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=04829fc7d84c4de88bb15515241312&q=${key}&days=3`);
+    if (response.ok && response.status != 400) {
+        var data = await response.json() ;
             // console.log(data);
                 displayCurrentDay(data);
                 displayNextDay(data.forecast.forecastday[1], "mid-header");
                 displayNextDay(data.forecast.forecastday[2],"date");
+    }
+            
 }
 function displayCurrentDay(data) {
     if (data != null) {
